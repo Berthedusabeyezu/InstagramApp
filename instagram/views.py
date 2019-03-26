@@ -32,7 +32,7 @@ def new_profile(request):
             profile.image = current_user
             profile.save()   
         return redirect('welcome')
-  
+    
     else:
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
