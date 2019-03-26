@@ -20,7 +20,7 @@ class Profile(models.Model):
     def update_profile(self, update):
         self.profile_photo = update 
         self.save()
-
+   
     
 class Image(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
