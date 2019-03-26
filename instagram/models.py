@@ -33,7 +33,7 @@ class Image(models.Model):
 
     
     def save_image(self):
-        self.save()
+        self.save()  
 
     @classmethod
     def get_images(cls):
