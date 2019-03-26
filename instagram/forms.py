@@ -14,7 +14,7 @@ class NewImageForm(forms.ModelForm):
 
 class NewCommentForm(forms.ModelForm):
     class Meta:
-        model = Comment
+        model = Comment  
         exclude = ['user']
 
 class LikeForm(forms.ModelForm):
