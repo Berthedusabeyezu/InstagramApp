@@ -39,7 +39,7 @@ class Image(models.Model):
     def get_images(cls):
         Image.objects.all()
     
-    def update_caption(self, update):
+    def update_caption(self, update):  
         self.image = update 
         self.save()
 
