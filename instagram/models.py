@@ -12,7 +12,7 @@ class Profile(models.Model):
         return self.profile_photo
 
     def save_profile(self):
-        self.save()
+        self.save()  
     
     def delete_profile(self):
         self.delete()

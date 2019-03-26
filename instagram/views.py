@@ -17,7 +17,7 @@ def search_profiles(request):
         message = f"{search_term}"
 
         return render(request, 'all-profile/search.html',{"message":message,"profiles": searched_profiles})
-
+   
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-profile/search.html',{"message":message})
