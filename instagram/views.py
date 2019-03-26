@@ -42,7 +42,7 @@ def images(request):
     return render(request, 'images.html',{"image":image})
 
 def image(request):
-    current_user = request.user
+    current_user = request.user 
     if request.method == 'POST':
         form = NewImageForm(request.POST, request.FILES)
         if form.is_valid():
