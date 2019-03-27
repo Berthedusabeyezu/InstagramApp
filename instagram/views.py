@@ -3,12 +3,14 @@ from django.http  import HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import NewProfileForm,NewImageForm,NewCommentForm,LikeForm
 from .models import Profile,Image,Comment,Like
+from django.contrib.auth.models import User
 # Create your views here.
 
 def welcome(request):
     # return HttpResponse('Welcome to the Moringa Tribune')
     profile = Profile.objects.all()
-    return render(request, 'welcome.html',{"profile":profile})
+    image = Image.objects.all()
+    return render(request, 'welcome.html',{"image":image})
 def search_profiles(request):
 
     if 'profile' in request.GET and request.GET["profile"]:
@@ -21,17 +23,24 @@ def search_profiles(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-profile/search.html',{"message":message})
+def profile(request,id):
+    user = User.objects.get(id = id)
+    profile = Profile.objects.get(user = user)
+   
+    # profile = Profile.objects.all()
+    return render(request, 'profile.html',{"one":profile})
 
 @login_required(login_url='/accounts/login/')
 def new_profile(request):
     current_user = request.user
+   
     if request.method == 'POST':
         form = NewProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            profile = form
-            profile.image = current_user
+            profile = form.save(commit=False)
+            profile.user = current_user
             profile.save()   
-        return redirect('welcome')
+        return redirect('new-profile')
     
     else:
         form = NewProfileForm()
@@ -39,7 +48,7 @@ def new_profile(request):
 
 def images(request):
     image = Image.objects.all()
-    return render(request, 'images.html',{"image":image})
+    return render(request, 'welcome.html',{"image":image})
 
 def image(request):
     current_user = request.user 
@@ -49,11 +58,19 @@ def image(request):
             image = form.save(commit=False)
             image.user = current_user
             image.save()
-        return redirect('Images')
+        return redirect("welcome")
 
     else:
         form = NewImageForm()
     return render(request, 'image.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def cmt(request,image_id):
+    image = Image.objects.get(id = image_id)
+    comment = Comment.objects.filter(image = image.id).all() 
+    likes = Like.objects.filter(image = image.id).all() 
+
+    return render(request,'welcome.html',{"image":image,"comment":comment,"likes":likes})
 
 def comment(request):
     current_user = request.user
@@ -68,6 +85,7 @@ def comment(request):
     else:
         form = NewCommentForm()
     return render(request, 'comment.html', {"form": form})
+
 
 def likes(request):
     current_user = request.user

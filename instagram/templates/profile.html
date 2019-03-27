@@ -10,7 +10,7 @@
   <title>Instagram Application- {{title}}</title>
   {% else %}
   <title> Instagram Application</title>
-  {% endif %}     
+  {% endif %}
 
   {% block styles %}
   {% bootstrap_css %}
@@ -20,16 +20,14 @@
 </head>
 
 <body>
-  {% include "navbar.html" %}   
+  {% include "navbar.html" %}
 
-  {% block content %}   
+  {% block content %} 
 
-  {% for one in image %}
+  
   <img src="{{one.image.url}}">
-  <p>{{one.image.url}}</p>
-  <p>{{comment.url}}</p>
-  <p>{{likes.url}}</p>
-  {% endfor %}
+  <p>{{one.bio}}</p>
+  
   {%endblock%}
 
   {% block scripts %}

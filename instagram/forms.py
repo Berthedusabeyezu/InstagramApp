@@ -5,7 +5,7 @@ from django import forms
 class NewProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = [ 'pub_date']
+        exclude = [ 'pub_date','user']
 
 class NewImageForm(forms.ModelForm):
     class Meta:
@@ -15,7 +15,7 @@ class NewImageForm(forms.ModelForm):
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model = Comment  
-        exclude = ['user']
+        exclude = ['user','image']
 
 class LikeForm(forms.ModelForm):
     class Meta:
