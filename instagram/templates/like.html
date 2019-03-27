@@ -1,0 +1,14 @@
+{%extends 'all-profile/base.html'%}
+{% block content %} 
+
+<h3><strong>{{image.name}}</strong></h3>
+</div>
+    <img src="{{image.image.url}}" alt="Image" width='400' length='500'> 
+    <p><strong><em>{{image.caption}}</em></strong></p>
+
+    {%for like in likes%}
+      <p>{{like.like}}</p>
+      {% endfor %}
+
+</body>
+{% endblock %}

@@ -70,33 +70,36 @@ def cmt(request,image_id):
     comment = Comment.objects.filter(image = image.id).all() 
     likes = Like.objects.filter(image = image.id).all() 
 
-    return render(request,'welcome.html',{"image":image,"comment":comment,"likes":likes})
+    return render(request,'cmt.html',{"image":image,"comment":comment,"likes":likes})
 
-def comment(request):
+def comment(request,image_id):
     current_user = request.user
+    image = Image.objects.get(id = image_id)
     if request.method == 'POST':
         form = NewCommentForm(request.POST, request.FILES)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = current_user
+            comment.image=image
             comment.save()
-        return redirect('comment')
+        return redirect('welcome')
 
     else:
         form = NewCommentForm()
-    return render(request, 'comment.html', {"form": form})
+    return render(request, 'comment.html', {"form": form,'image':image})
 
 
-def likes(request):
+def likes(request,image_id):
     current_user = request.user
+    image = Image.objects.get(id = image_id)
     if request.method == 'POST':
         form = LikeForm(request.POST, request.FILES)
         if form.is_valid():
             likes = form.save(commit=False)
             likes.user = current_user
             likes.save()
-        return redirect('likes')
+        return redirect('welcome')
 
     else:
         form = LikeForm()
-    return render(request, 'likes.html', {"form": form})
+    return render(request, 'likes.html', {"form": form,'image':image})
