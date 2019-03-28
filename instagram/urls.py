@@ -12,7 +12,7 @@ urlpatterns=[
     url(r'^search/', views.search_profiles, name='search_profiles'),
     url(r'^new/image', views.image, name='image'), 
     url(r'^comment/(\d+)', views.comment, name='comment'),
-    url(r'^likes/', views.likes, name='likes'),
+    url(r'^likes/$', views.likes, name='likes'),
     url(r'^cmt/(\d+)', views.cmt, name='cmt'),
     url(r'^like/(\d+)', views.cmt, name='like'),
 
