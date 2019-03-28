@@ -12,16 +12,8 @@ img{
     vertical-align: middle;
     width: 250px;
     height: 250px;
-    border-radius: 50%;
+    border-radius:0%;
   }
 .panel-body{
     background-color:grey;
   }
-.imgnew img{ 
-  width: 330px;
-  height: 250px;
-  border-radius: 3%;
-}
-.panel panel-info{
-  width: 5px;
-}

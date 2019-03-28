@@ -5,12 +5,13 @@ from .forms import NewProfileForm,NewImageForm,NewCommentForm,LikeForm
 from .models import Profile,Image,Comment,Like
 from django.contrib.auth.models import User
 # Create your views here.
-
+@login_required(login_url='/accounts/login/')
 def welcome(request):
     # return HttpResponse('Welcome to the Moringa Tribune')
     profile = Profile.objects.all()
     image = Image.objects.all()
     return render(request, 'welcome.html',{"image":image})
+@login_required(login_url='/accounts/login/')
 def search_profiles(request):
 
     if 'profile' in request.GET and request.GET["profile"]:
@@ -23,6 +24,7 @@ def search_profiles(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-profile/search.html',{"message":message})
+@login_required(login_url='/accounts/login/')
 def profile(request,id):
     user = User.objects.get(id = id)
     profile = Profile.objects.get(user = user)
@@ -45,11 +47,11 @@ def new_profile(request):
     else:
         form = NewProfileForm()
     return render(request, 'new_profile.html', {"form": form})
-
+@login_required(login_url='/accounts/login/')
 def images(request):
     image = Image.objects.all()
     return render(request, 'welcome.html',{"image":image})
-
+@login_required(login_url='/accounts/login/')
 def image(request):
     current_user = request.user 
     if request.method == 'POST':
@@ -71,7 +73,7 @@ def cmt(request,image_id):
     likes = Like.objects.filter(image = image.id).all() 
 
     return render(request,'cmt.html',{"image":image,"comment":comment,"likes":likes})
-
+@login_required(login_url='/accounts/login/')
 def comment(request,image_id):
     current_user = request.user
     image = Image.objects.get(id = image_id)
@@ -88,7 +90,7 @@ def comment(request,image_id):
         form = NewCommentForm()
     return render(request, 'comment.html', {"form": form,'image':image})
 
-
+@login_required(login_url='/accounts/login/')
 def likes(request,image_id):
     current_user = request.user
     image = Image.objects.get(id = image_id)
